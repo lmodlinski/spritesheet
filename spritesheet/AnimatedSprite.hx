@@ -127,7 +127,7 @@ class AnimatedSprite extends Sprite {
 			
 			timeElapsed += deltaTime;
 			
-			ar frameCount:Int = currentBehavior.frames.length;
+			var frameCount:Int = currentBehavior.frames.length;
                         var frameDuration:Int = Math.round(loopTime / frameCount);
                         var timeInAnimation:Int = timeElapsed % loopTime;
                         var rawFrameIndex:Int = Math.round(timeInAnimation / frameDuration);
