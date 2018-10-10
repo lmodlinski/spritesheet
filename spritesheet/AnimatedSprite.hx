@@ -127,34 +127,31 @@ class AnimatedSprite extends Sprite {
 			
 			timeElapsed += deltaTime;
 			
-			var ratio = timeElapsed / loopTime;
-			
-			if (ratio >= 1) {
-				
-				if (currentBehavior.loop) {
-					
-					ratio -= Math.floor (ratio);
-					
-				} else {
-					
-					behaviorComplete = true;
-					ratio = 1;
-					
-				}
-				
-			}
-			
-			// Number of frames in the animation
-			var frameCount = currentBehavior.frames.length;
-			// Duration in ms of a single frame
-			var frameDuration:Int = Math.round(loopTime / frameCount);
-			// This is the number of ms we have been in this animation
-			var timeInAnimation:Int = timeElapsed % loopTime;
-			// The raw frame index is the number of frames we have had time to show
-			var rawFrameIndex:Int = Math.round(timeInAnimation / frameDuration);
-			// Make sure we loop correctly
-			currentFrameIndex = rawFrameIndex % frameCount;
-			
+			ar frameCount:Int = currentBehavior.frames.length;
+                        var frameDuration:Int = Math.round(loopTime / frameCount);
+                        var timeInAnimation:Int = timeElapsed % loopTime;
+                        var rawFrameIndex:Int = Math.round(timeInAnimation / frameDuration);
+
+                        var ratio = timeElapsed / loopTime;
+                        if (ratio >= 1) {
+
+                                if (currentBehavior.loop) {
+
+                                        ratio -= Math.floor (ratio);
+
+                                } else {
+
+                                        behaviorComplete = true;
+
+                                        rawFrameIndex = frameCount - 1;
+                                        ratio = 1;
+
+                                }
+
+                        }
+
+                        currentFrameIndex = rawFrameIndex % frameCount;		
+	
 			var frame = spritesheet.getFrame (currentBehavior.frames [currentFrameIndex]);
 
 			this.tile.id = frame.id;
