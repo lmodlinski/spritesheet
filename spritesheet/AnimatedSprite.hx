@@ -119,6 +119,15 @@ class AnimatedSprite extends Sprite {
 		}
 		
 	}
+
+
+	public function showFrame (frameIndex:Int):Void {
+		var frame = spritesheet.getFrame (currentBehavior.frames [frameIndex]);
+
+		this.tile.id = frame.id;
+		this.tile.x = frame.offsetX - currentBehavior.originX;
+		this.tile.y = frame.offsetY - currentBehavior.originY;
+	}
 	
 	
 	public function update (deltaTime:Int):Void {
@@ -133,7 +142,7 @@ class AnimatedSprite extends Sprite {
                         var rawFrameIndex:Int = Math.round(timeInAnimation / frameDuration);
 
                         var ratio = timeElapsed / loopTime;
-                        if (ratio >= 1) {
+                        if (ratio >= 1 || rawFrameIndex == frameCount - 1) {
 
                                 if (currentBehavior.loop) {
 
